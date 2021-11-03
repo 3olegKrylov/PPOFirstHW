@@ -39,7 +39,7 @@ func TestSetLru(t *testing.T) {
 		lruc.Set(key, i)
 
 		if lruc.Get(key) != i {
-			t.Error("expected ", i, "your value is ", lruc.Get(key))
+			panic("error: TestSetLru")
 		}
 	}
 }
@@ -47,7 +47,7 @@ func TestSetLru(t *testing.T) {
 func TestCapacity(t *testing.T) {
 	_, err := models.CreatLRUCache(-4)
 	if err == nil {
-		t.Error("expected err about capacity >0")
+		t.Error("error: TestCapacity, have tocapacity >0")
 	}
 }
 
@@ -73,32 +73,32 @@ func TestTypeLRUC(t *testing.T) {
 
 	for _, testCase := range testTable {
 		if lruc.Get(testCase.key) != testCase.value {
-			t.Error("expected", testCase.value, "your value is", lruc.Get(testCase.key))
+			panic("excepted value is not true TestTypeLRUC")
 		}
 
-		switch v := testCase.value.(type) {
+		switch _ := testCase.value.(type) {
 		case string:
 			if testCase.exepted != "string" {
-				t.Error("expected type string, but type value -", v)
+				panic("TestTypeLRUC expected type string")
 			}
 			break
 		case int:
 			if testCase.exepted != "int" {
-				t.Error("expected type int, but type value -", v)
+				panic("TestTypeLRUC expected type int")
 			}
 			break
 		case float64:
 			if testCase.exepted != "float64" {
-				t.Error("expected type float64, but type value -", v)
+				panic("TestTypeLRUC expected type float64")
 			}
 			break
 		case []int:
 			if testCase.exepted != "[]int" {
-				t.Error("expected type []int, but type value -", v)
+				panic("TestTypeLRUC expected type []int")
 			}
 			break
 		case interface{}:
-			t.Error("expected not interface{}")
+			panic("TestTypeLRUC expected type interface")
 		default:
 
 		}
